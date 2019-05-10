@@ -1,1 +1,2 @@
-*.rb linguist-language=Prolog
+*.tex linguist-language=False
+*.pl linguist-language=Prolog
