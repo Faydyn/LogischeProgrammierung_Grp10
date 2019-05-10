@@ -1,7 +1,7 @@
 /*
 Adnan Alyousfi, 218205332, Informatik
 Dirk Peglow, Informatik
-Nils Henrik Seitz, 218205308, Informatik
+Nils Seitz, 218205308, Informatik
 Lorka Trad, Informatik
 Nico Trebbin, 218204402, Informatik
 */
