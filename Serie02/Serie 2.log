@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.9)  30 MAY 2019 22:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.9)  31 MAY 2019 00:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -549,22 +549,52 @@ Underfull \hbox (badness 10000) in paragraph at lines 102--104
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--111
+Underfull \hbox (badness 10000) in paragraph at lines 105--113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--114
+Underfull \hbox (badness 10000) in paragraph at lines 114--119
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--123
+Underfull \hbox (badness 10000) in paragraph at lines 120--124
 
  []
 
 [2 <./Data/A2/1.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 124--131
+Underfull \hbox (badness 10000) in paragraph at lines 125--127
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 128--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--141
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--144
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 148--153
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--161
 
  []
 
@@ -572,11 +602,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 124--131
 Here is how much of TeX's memory you used:
  7334 strings out of 492649
  133238 string characters out of 6129623
- 257100 words of memory out of 5000000
+ 259100 words of memory out of 5000000
  11084 multiletter control sequences out of 15000+600000
  32708 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 51i,20n,68p,276b,388s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 51i,19n,68p,276b,388s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-
 ec.enc}{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/u
 sr/local/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texli
@@ -586,7 +616,7 @@ onts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1
 /public/lm/lmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/
 lmro10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmsy10.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on "Serie 2.pdf" (3 pages, 140876 bytes).
+Output written on "Serie 2.pdf" (3 pages, 142901 bytes).
 PDF statistics:
  47 PDF objects out of 1000 (max. 8388607)
  33 compressed objects within 1 object stream

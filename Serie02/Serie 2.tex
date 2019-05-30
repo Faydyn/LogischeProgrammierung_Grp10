@@ -102,6 +102,36 @@ $\neg I \vee \neg F \vee D \vee R \equiv \neg I \vee  \neg F \vee  D \vee R$\\
 {\bfseries 3.B}\\
 $HB = \lbrace$\texttt{running,  damaged,  ignition ,  fuel,  battery,  plug}$ \rbrace$\\
 
+{\bfseries 3.C}\\
+$I = \lbrace \emptyset, R, D, I, B, F, P, $\\
+$RD, RI, RB, RF, RP, DI, DB, DF, DP, IB, IF, IP, BF, BP, FP$\\
+$RDI, RDB, RDF, RDP, RIB, RIF, RIP, RBF,RBP,RFP,$\\
+$DIB, DIF, DIP, DBF, DBP, DFP, IBF, IBP, IFP, BFP, $\\
+$RDIB, RDIF, RDIP, RDBF, RDBP, RDFP,$\\
+$ RIBF, RIBP, RIFP, RBFP, DIBF, DIBP, DIFP, DBFP, IBFP$\\
+$RDIBF, RDIBP, RDIFP, RDBFP, RIBFP, DIBFP, RDIBFP\rbrace$\\
+
+\texttt{fuel.}: Alle Modelle müssen $F$ enthalten.:\\
+$I = \lbrace F, RF, DF, IF, BF, FP$\\
+$RDF, RIF, RBF,RFP, DIF, DBF, DFP, IBF, IFP, BFP, $\\
+$RDIF,  RDBF,RDFP,RIBF,  RIFP, RBFP, DIBF, DIFP, DBFP, IBFP$\\
+$RDIBF, RDIFP, RDBFP, RIBFP, DIBFP, RDIBFP\rbrace$\\
+
+\texttt{battery.}: Alle Modelle müssen $B$ enthalten.:\\
+$I = \lbrace  BF,  RBF,DBF,  IBF, BFP, $\\
+$  RDBF,RIBF,  RBFP, DIBF,  DBFP, IBFP$\\
+$RDIBF,  RDBFP, RIBFP, DIBFP, RDIBFP\rbrace$\\
+\newpage
+\texttt{:- plug.}: Kein Modell darf $P$ enthalten.:\\
+$I = \lbrace  BF,  RBF,DBF,  IBF, RDBF,RIBF, DIBF , RDIBF \rbrace$\\
+
+\texttt{ignition :- plug, battery.}: Wenn $P \wedge B$, dann $I$ (aber $P$ wurde eben überall entfernt).:\\
+$I = \lbrace  BF,  RBF,DBF,  IBF, RDBF,RIBF, DIBF , RDIBF \rbrace$\\
+
+\texttt{running :- ignition, fuel,not(damaged).}: Wenn $I \wedge F \wedge \neg D$, dann $R $ (intendiertes Modell).:\\
+$I = \lbrace  BF,  RBF,DBF,  RDBF,RIBF,DIBF , RDIBF  \rbrace$\\
+
+
 {\bfseries 3.D}\\
 \texttt{F.\\
 B.\\
@@ -128,6 +158,7 @@ $\equiv$ \texttt{:- R.} und \texttt{:- D.} und \texttt{P.} \\
 5. \texttt{:- P,F. $\;\;\;$       F.}\\
 6. \texttt{:- P.  $\;\;\;$       P.}\\
 7. \texttt{       [] }\\
+
 
 
 
