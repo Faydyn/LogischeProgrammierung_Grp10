@@ -38,4 +38,16 @@ a2b :- ableitung(3*x+2, x, A), writeln('ableitung(3*x+2, x, R)'), write('R =   '
 ableitung((3*x+2)*(2*x), x, D), writeln('ableitung((3*x+2)*(2*x), x, R)'),write('R =  '),writeln(D), writeln(''), ableitung((x*x+2*x+3)/(3*x), x, E), writeln('ableitung((x*x+2*x+3)/(3*x), x, R)'),write('R =  '),writeln(E),writeln('').
 
 
+%3.
+fuel.
+battery.
+:- plug.
+ignition :- battery, plug.
+
+%3.A
+running :- ignition,fuel,not(damaged).
+
+
+
+
 

@@ -100,7 +100,7 @@ $\neg (I \wedge F) \vee D \vee R \equiv \neg (I \wedge F \wedge \neg D) \vee R$\
 $\neg I \vee \neg F \vee D \vee R \equiv \neg I \vee  \neg F \vee  D \vee R$\\
 
 {\bfseries 3.B}\\
-$HB = \lbrace$\texttt{running,  damaged,  ignition ,  fuel,  battery,  plug}$ \rbrace$\\
+Herbrand-Basis $HB = \lbrace$\texttt{running,  damaged,  ignition ,  fuel,  battery,  plug}$ \rbrace$\\
 
 {\bfseries 3.D}\\
 \texttt{F.\\
