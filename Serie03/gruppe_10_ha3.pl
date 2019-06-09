@@ -6,8 +6,23 @@ Lorka Trad, Informatik
 Nico Trebbin, 218204402, Informatik
 */
 
-blup(L, E, R) :-
-  append(L1, [E|L2], L), append(L1, L2, R).
+%Aufgabe 1 
+blup(L, E, R) :- append1(L1, [E|L2], L), append1(L1, L2, R).
+
+%1.B
+blup2([A|L],E,[A|R])  :- blup2(L,E,R).
+blup2([E],E,[]) :-  !.
+blup2([E|L],E,R) :- blup3(L, R).
+%blup2([],null,[]).
+
+blup3([A|L],[A|R]) :- blup3(L,R).
+blup3([],[]).
+
+
+append1([], L, L).
+append1([H|T], L, [H|R]) :- append1(T, L, R).
+
+
 
 %4
 
