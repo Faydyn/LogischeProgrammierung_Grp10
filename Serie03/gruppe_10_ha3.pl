@@ -23,6 +23,54 @@ append1([], L, L).
 append1([H|T], L, [H|R]) :- append1(T, L, R).
 
 
+%Aufgabe 2
+%Basisregeln
+simplify(-(-E), E) :- !.
+simplify(-(E+F),(-E)+(-F)):- !.
+simplify(-(E*F), (-E)*F):- !.
+simplify(0+E,E):- !.
+simplify(E+0,E):- !.
+simplify(0*_, 0):- !.
+simplify(_*0, 0):- !.
+simplify(1*E, E):- number(E), !.
+simplify(E*1, E):- number(E), !.
+simplify((E/1),E):- !.
+simplify(E-0, E):- !.
+simplify(E-E, 0):- !.
+
+%komplexe Regeln
+
+
+simplify(E*Variable + F*Variable, X*Variable) :- simplify(E,A), simplify(F,B), X is A + B, !.
+simplify(E*Variable-F*Variable,X*Variable) :- simplify(E,A), simplify(F,B), X is A - B, !.
+simplify(E*Variable/(F*Variable), X) :- simplify(E,A), simplify(F,B), X is A / B, !.
+
+simplify(E*Variable1 + F*Variable2, X) :- simplify(E,A), simplify(F,B), X = A*Variable1+B*Variable2, !.
+simplify(E*Variable1-F*Variable2,X) :- simplify(E,A), simplify(F,B), X = A*Variable1-B*Variable2, !.
+simplify(E*Variable1*F*Variable2, X) :- simplify(E,A), simplify(F,B), Y is A * B, X = Y * Variable1*Variable2, !.
+simplify(E*Variable1/(F*Variable2), X) :- simplify(E,A), simplify(F,B), Y is A / B, X = Y * Variable1/Variable2, !.
+
+simplify(E*Variable + F*Variable, X*Variable) :- simplify(E,A), simplify(F,B), X is A + B, !.
+simplify(E*Variable-F*Variable,X*Variable) :- simplify(E,A), simplify(F,B), X is A - B, !.
+simplify(E*Variable/(F*Variable), X) :- simplify(E,A), simplify(F,B), X is A / B, !.
+
+simplify(Variable + Variable, 2*Variable) :- !.
+simplify(Variable - Variable, 0):- !.
+simplify(Variable / Variable, 1):- !.
+simplify(Variable * Variable, Variable * Variable):- !.
+
+simplify(E*Variable,E*Variable) :- atom(E) ; number(E).
+
+simplify(E+F, X) :- simplify(E,A), simplify(F,B), X is A + B, !.
+simplify(E-F,X) :-  simplify(E,A), simplify(F,B), X is A - B, !.
+simplify(E*F, X) :- simplify(E,A), simplify(F,B), X is A * B, !.
+simplify(E/F, X) :- simplify(E,A), simplify(F,B), X is A / B, !.
+
+%Identifikationsregel
+simplify(E,E) :- atom(E) ; number(E).
+%simplify(Variable, Variable) :- atom(Variable); string(Variable).
+
+
 
 %4
 
