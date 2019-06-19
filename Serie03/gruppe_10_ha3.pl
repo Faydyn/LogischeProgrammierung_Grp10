@@ -22,7 +22,6 @@ blup3([],[]).
 append1([], L, L).
 append1([H|T], L, [H|R]) :- append1(T, L, R).
 
-
 %Aufgabe 2
 
 %Basisregeln
@@ -115,10 +114,23 @@ simplify(E/F, X) :- simplify(E,A), simplify(F,B), X is A / B, !.
 
 
 
+%Aufgabe 3
+aufgabe3 :- ableitung(3*x+2, x, A), simplify(A,Z1), writeln('ableitung(3*x+2, x, R)'), write('R =   '), writeln(A), write('simplify('),write(A),writeln(', Z)'), write('Z = '), writeln(Z1), writeln(''), 
+ableitung(3*x*x, x, B), simplify(B,Z2), writeln('ableitung(3*x*x, x, R)'), write('R =  '),writeln(B),write('simplify('),write(B),writeln(', Z)'), write('Z = '), writeln(Z2),writeln(''), 
+ableitung(y,x,C), simplify(C,Z3), writeln('ableitung(y,x,R)'), write('R =  '),writeln(C), write('simplify('),write(C),writeln(', Z)'), write('Z = '), writeln(Z3), writeln(''),
+ableitung((3*x+2)*(2*x), x, D), simplify(D,Z4), writeln('ableitung((3*x+2)*(2*x), x, R)'),write('R =  '),writeln(D), write('simplify('),write(D),writeln(', Z)'), write('Z = '), writeln(Z4), writeln(''),
+ableitung((x*x+2*x+3)/(3*x), x, E), simplify(E,Z5), writeln('ableitung((x*x+2*x+3)/(3*x), x, R)'),write('R =  '),writeln(E),write('simplify('),write(E),writeln(', Z)'), write('Z = '), writeln(Z5), writeln('').
+
+
+
+
+
+
 
 
 %4
 
+%Aufgabe A
 border(hro,lro).
 border(lro,vr).
 border(lro,mse).
@@ -132,6 +144,21 @@ border(sn,lup).
 border(sn,nwm).
 border(lup,nwm).
 
+
+%Aufgabe B
+
+counties(CS) :- findall(X,(border(X,_);border(_,X)) ,LIST), sort(LIST,CS).
+
+neighbours(C,N) :- atom(C), findall(X,(border(C,X);border(X,C)) ,N).
+neighbours(VAR,N) :- not(atom(VAR)), counties(CS), bagof(VAR, (member(VAR, CS), neighbours(VAR,N)),[VAR|_]).
+
+
+%Aufgabe C
+colours([red,yellow,blue,green]).
+
+
+genColouring([], []).
+genColouring(Counties, Colouring) :- colours(Colours), permut
 
 
 
@@ -164,11 +191,4 @@ ableitung(Function1*Function2,X,Derivative) :- ableitung(Function1,X,Y1), ableit
 
 %vi
 ableitung(Function1/Function2,X,Derivative)  :- ableitung(Function1,X,Y1), ableitung(Function2,X,Y2), Derivative = ((Y1*Function2 - Function1*Y2)/(Function2*Function2)),!.
-
-%Aufgabe 3
-aufgabe3 :- ableitung(3*x+2, x, A), simplify(A,Z1), writeln('ableitung(3*x+2, x, R)'), write('R =   '), writeln(A), write('simplify('),write(A),writeln(', Z)'), write('Z = '), writeln(Z1), writeln(''), 
-ableitung(3*x*x, x, B), simplify(B,Z2), writeln('ableitung(3*x*x, x, R)'), write('R =  '),writeln(B),write('simplify('),write(B),writeln(', Z)'), write('Z = '), writeln(Z2),writeln(''), 
-ableitung(y,x,C), simplify(C,Z3), writeln('ableitung(y,x,R)'), write('R =  '),writeln(C), write('simplify('),write(C),writeln(', Z)'), write('Z = '), writeln(Z3), writeln(''),
-ableitung((3*x+2)*(2*x), x, D), simplify(D,Z4), writeln('ableitung((3*x+2)*(2*x), x, R)'),write('R =  '),writeln(D), write('simplify('),write(D),writeln(', Z)'), write('Z = '), writeln(Z4), writeln(''),
-ableitung((x*x+2*x+3)/(3*x), x, E), simplify(E,Z5), writeln('ableitung((x*x+2*x+3)/(3*x), x, R)'),write('R =  '),writeln(E),write('simplify('),write(E),writeln(', Z)'), write('Z = '), writeln(Z5), writeln('').
 
