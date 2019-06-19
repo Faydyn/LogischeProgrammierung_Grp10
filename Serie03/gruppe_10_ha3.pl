@@ -150,17 +150,29 @@ border(lup,nwm).
 counties(CS) :- findall(X,(border(X,_);border(_,X)) ,LIST), sort(LIST,CS).
 
 neighbours(C,N) :- atom(C), findall(X,(border(C,X);border(X,C)) ,N).
-neighbours(VAR,N) :- not(atom(VAR)), counties(CS), bagof(VAR, (member(VAR, CS), neighbours(VAR,N)),[VAR|_]).
+neighbours(VAR,N) :- var(VAR), counties(CS), bagof(VAR, (member(VAR, CS), neighbours(VAR,N)),[VAR|_]).
 
 
 %Aufgabe C
 colours([red,yellow,blue,green]).
 
 
-genColouring([], []).
-genColouring(Counties, Colouring) :- colours(Colours), permut
+genColouring(Counties, Colouring) :- is_list(Counties), colours(Colours), perm(Counties, PermCount), colourIt(PermCount,L1,Colours), sort(L1, Colouring). 
+genColouring(Counties, Colouring) :- var(Counties), counties(Counties), genColouring(Counties, Colouring).
+
+colourIt([],[],_) :- !.
+colourIt([X|L1], [X=Z|L2],[Z|C]) :- colourIt(L1,L2,C).
+colourIt(L1,L2,[]) :- colours(Colours), colourIt(L1,L2,Colours).
+
+perm(List,PermList):-length(List,Length),length(PermList,Length), foreach(member(X,List),member(X,PermList)).
 
 
+
+validColouring(Colouring) :- findall((X=A,Y=A),(member(X=A, Colouring), (member(Y=A, Colouring),(border(X,Y);border(Y,X)))),Z), Z = [].
+
+
+
+colouring(Counties, Colouring) :- genColouring(Counties, Colouring), validColouring(Colouring).
 
 
 
