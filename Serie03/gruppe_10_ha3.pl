@@ -24,46 +24,38 @@ append1([H|T], L, [H|R]) :- append1(T, L, R).
 
 %Aufgabe 2
 
-%Basisregeln
-simplify(-(-(E)), E) :- !.
-simplify(-(E+F),(-E)+(-F)):- !.
-simplify(-(E*F), (-E)*F):- !.
-simplify(0+E,E):- !.
-simplify(E+0,E):- !.
-simplify(0*_, 0):- !.
-simplify(_*0, 0):- !.
-simplify(1*E, E):- !.
-simplify(E*1, E):- !.
-simplify((E/1),E):- !.
-simplify(E-0, E):- !.
-simplify(E-E, 0):- !.
-
-
-
 %Identifikationsregel
 simplify(E*Variable + F,E*Variable + F) :- not(number(Variable)), atom(Variable), number(E), number(F),!.
 simplify(E*Variable - F,E*Variable - F) :- not(number(Variable)), atom(Variable),number(E), number(F),!.
 
 simplify(E,E) :- atom(E), !;number(E), !.
-simplify(E*Variable,E*Variable) :- number(E), atom(Variable), not(number(Variable)), !.
-
-
-%-dfvad
-simplify(Konst+Variable, Konst+Variable):- number(Konst), atom(Variable), not(number(Variable)), !.
-simplify(Variable+Konst, Konst+Variable):-number(Konst), atom(Variable), not(number(Variable)), !.
-simplify(Konst-Variable, Konst-Variable):- number(Konst), atom(Variable), not(number(Variable)), !.
-simplify(Variable-Konst, -Konst+Variable):-number(Konst), atom(Variable), not(number(Variable)), !.
-simplify(Konst*Variable, Konst*Variable):- number(Konst), atom(Variable), not(number(Variable)), !.
-simplify(Variable*Konst, Konst*Variable):-number(Konst), atom(Variable), not(number(Variable)), !.
-
-simplify(Term1 + Term2, X) :-simplify(Term1,A), simplify(Term2,B), number(A), number(B), X is A + B,  !.
-simplify(Term1 - Term2, X) :- simplify(Term1,A), simplify(Term2,B), number(A), number(B), X is A - B,  !.
-simplify(Term1 * Term2, X) :- simplify(Term1,A), simplify(Term2,B), number(A), number(B), X is A * B, !.
-simplify(Term1 / Term2, X) :- simplify(Term1,A), simplify(Term2,B), number(A), number(B), X is A / B, !.
 
 
 
 
+%Basisregeln
+simplify(-(-(E)), Y) :- simplify(E,Y), !.
+simplify(-(E+F),Y):- simplify((-E)+(-F),Y), !.
+simplify(-(E*F), Y):- simplify((-E)*F,Y), !.
+simplify(0+E,Y):- simplify(E,Y), !.
+simplify(E+0,Y):- simplify(E,Y), !.
+simplify(0*_, 0):- !.
+simplify(_*0, 0):- !.
+simplify(1*E, Y):- simplify(E,Y), !.
+simplify(E*1, Y):- simplify(E,Y), !.
+simplify((E/1),Y):- simplify(E,Y), !.
+simplify(E-0, Y):- simplify(E,Y), !.
+simplify(E-E, 0):- !.
+
+
+simplify(Term1 + Term2, X) :-simplify(Term1,A), simplify(Term2,B), number(A), number(B), X is A+B, !.
+simplify(Term1 - Term2, X) :- simplify(Term1,A), simplify(Term2,B), number(A), number(B), X is A-B, !.
+simplify(Term1 * Term2, X) :- simplify(Term1,A), simplify(Term2,B), number(A), number(B),  X is A*B, !.
+simplify(Term1 / Term2, X) :- simplify(Term1,A), simplify(Term2,B), number(A), number(B), X is A/B, !.
+
+
+
+%Variablenbehandlung
 
 %spezielle Regeln
 
@@ -76,11 +68,14 @@ simplify(Variable*E + Variable*F, X*Variable) :- number(E), number(F), atom(Vari
 simplify(E*Variable-F*Variable,X*Variable) :- simplify(E-F,X), !.
 simplify(E*Variable/(F*Variable), X) :- simplify(E/F,X), !.
 
-simplify(E*Variable1 + F*Variable2, X) :- simplify(E,A), simplify(F,B), X = A*Variable1+B*Variable2, !.
-simplify(E*Variable1-F*Variable2,X) :- simplify(E,A), simplify(F,B), X = A*Variable1-B*Variable2, !.
-simplify(E*Variable1*F*Variable2, X) :- simplify(E,A), simplify(F,B), Y is A * B, X = Y * Variable1*Variable2, !.
-simplify(E*Variable1/(F*Variable2), X) :- simplify(E,A), simplify(F,B), Y is A / B, X = Y * Variable1/Variable2, !.
+/*
 
+simplify(E*Variable1 + F*Variable2, X) :- Variable1 \= Variable2,simplify(E,A), simplify(F,B), X = A*Variable1+B*Variable2, !.
+simplify(E*Variable1-F*Variable2,X) :- Variable1 \= Variable2,simplify(E,A), simplify(F,B), X = A*Variable1-B*Variable2, !.
+simplify(E*Variable1*F*Variable2, X) :- Variable1 \= Variable2,simplify(E,A), simplify(F,B), Y is A * B, X = Y * Variable1*Variable2, !.
+simplify(E*Variable1/(F*Variable2), X) :- Variable1 \= Variable2, simplify(E,A), simplify(F,B), Y is A / B, X = Y * Variable1/Variable2, !.
+
+*/
 
 simplify(E*Variable + Variable, X*Variable) :- simplify(E + 1,X), !.
 simplify(E*Variable - Variable,X*Variable) :- simplify(E - 1,X), !.
@@ -98,9 +93,11 @@ simplify(Variable*Variable,Variable*Variable ):- !.
 
 %allgmeine Regeln
 
-simplify(Term1 + Term2, X) :-simplify(Term1,A), simplify(Term2,B), Y = A + B, simplify(Y,X),  !.
-simplify(Term1 - Term2, X) :- simplify(Term1,A), simplify(Term2,B), Y = A - B,  simplify(Y,X), !.
-simplify(Term1 * Term2, X) :- simplify(Term1,A), simplify(Term2,B), Y = A * B, simplify(Y,X), !.
+simplify(Term1 + Term2, Y) :- simplify(Term1,A), simplify(Term2,B), simplify(A+B,Y), !.
+simplify(Term1 - Term2, Y) :- simplify(Term1,A), simplify(Term2,B), simplify(A-B,Y), !.
+simplify(Term1 * Term2, A*B) :- simplify(Term1,A), not(number(A)),  simplify(Term2,B), !. 
+simplify(Term1 * Term2, A*B) :- simplify(Term1,A),  simplify(Term2,B), not(number(B)), !. 
+simplify(Term1 / Term2, Y) :- simplify(Term1,A), simplify(Term2,B), simplify(A/B,Y), !.
 
 
 /*
@@ -109,6 +106,7 @@ simplify(E-F,X) :-   simplify(E,A), simplify(F,B), X is A - B, !.
 simplify(E*F, X) :- simplify(E,A), simplify(F,B), X is A * B, !.
 simplify(E/F, X) :- simplify(E,A), simplify(F,B), X is A / B, !.
 */
+
 
 
 
@@ -156,7 +154,8 @@ neighbours(VAR,N) :- var(VAR), counties(CS), bagof(VAR, (member(VAR, CS), neighb
 %Aufgabe C
 colours([red,yellow,blue,green]).
 
-
+%i
+genColouring(Counties,Colouring) :- is_list(Counties), colours(Colours),length(Counties,Length),findnsols(Length, X=Y, (member(Y,Colours), member(X, Counties)), Colouring). 
 genColouring(Counties, Colouring) :- is_list(Counties), colours(Colours), perm(Counties, PermCount), colourIt(PermCount,L1,Colours), sort(L1, Colouring). 
 genColouring(Counties, Colouring) :- var(Counties), counties(Counties), genColouring(Counties, Colouring).
 
@@ -167,11 +166,11 @@ colourIt(L1,L2,[]) :- colours(Colours), colourIt(L1,L2,Colours).
 perm(List,PermList):-length(List,Length),length(PermList,Length), foreach(member(X,List),member(X,PermList)).
 
 
-
+%ii
 validColouring(Colouring) :- findall((X=A,Y=A),(member(X=A, Colouring), (member(Y=A, Colouring),(border(X,Y);border(Y,X)))),Z), Z = [].
 
 
-
+%iii
 colouring(Counties, Colouring) :- genColouring(Counties, Colouring), validColouring(Colouring).
 
 
