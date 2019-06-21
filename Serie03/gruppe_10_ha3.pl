@@ -13,14 +13,10 @@ blup(L, E, R) :- append(L1, [E|L2], L), append(L1, L2, R).
 blup2([A|L],E,[A|R])  :- blup2(L,E,R).
 blup2([E],E,[]) :-  !.
 blup2([E|L],E,R) :- blup3(L, R).
-%blup2([],null,[]).
 
 blup3([A|L],[A|R]) :- blup3(L,R).
 blup3([],[]).
 
-
-append1([], L, L).
-append1([H|T], L, [H|R]) :- append1(T, L, R).
 
 %Aufgabe 2
 
@@ -48,6 +44,9 @@ simplify(E-0, Y):- simplify(E,Y), !.
 simplify(E-E, 0):- !.
 
 
+
+%Konstantenbehandlung
+
 simplify(Term1 + Term2, X) :-simplify(Term1,A), simplify(Term2,B), number(A), number(B), X is A+B, !.
 simplify(Term1 - Term2, X) :- simplify(Term1,A), simplify(Term2,B), number(A), number(B), X is A-B, !.
 simplify(Term1 * Term2, X) :- simplify(Term1,A), simplify(Term2,B), number(A), number(B),  X is A*B, !.
@@ -68,14 +67,6 @@ simplify(Variable*E + Variable*F, X*Variable) :- number(E), number(F), atom(Vari
 simplify(E*Variable-F*Variable,X*Variable) :- simplify(E-F,X), !.
 simplify(E*Variable/(F*Variable), X) :- simplify(E/F,X), !.
 
-/*
-
-simplify(E*Variable1 + F*Variable2, X) :- Variable1 \= Variable2,simplify(E,A), simplify(F,B), X = A*Variable1+B*Variable2, !.
-simplify(E*Variable1-F*Variable2,X) :- Variable1 \= Variable2,simplify(E,A), simplify(F,B), X = A*Variable1-B*Variable2, !.
-simplify(E*Variable1*F*Variable2, X) :- Variable1 \= Variable2,simplify(E,A), simplify(F,B), Y is A * B, X = Y * Variable1*Variable2, !.
-simplify(E*Variable1/(F*Variable2), X) :- Variable1 \= Variable2, simplify(E,A), simplify(F,B), Y is A / B, X = Y * Variable1/Variable2, !.
-
-*/
 
 simplify(E*Variable + Variable, X*Variable) :- simplify(E + 1,X), !.
 simplify(E*Variable - Variable,X*Variable) :- simplify(E - 1,X), !.
@@ -98,18 +89,6 @@ simplify(Term1 - Term2, Y) :- simplify(Term1,A), simplify(Term2,B), simplify(A-B
 simplify(Term1 * Term2, A*B) :- simplify(Term1,A), not(number(A)),  simplify(Term2,B), !. 
 simplify(Term1 * Term2, A*B) :- simplify(Term1,A),  simplify(Term2,B), not(number(B)), !. 
 simplify(Term1 / Term2, Y) :- simplify(Term1,A), simplify(Term2,B), simplify(A/B,Y), !.
-
-
-/*
-simplify(E+F, X) :- simplify(E,A), simplify(F,B), X is A + B, !.
-simplify(E-F,X) :-   simplify(E,A), simplify(F,B), X is A - B, !.
-simplify(E*F, X) :- simplify(E,A), simplify(F,B), X is A * B, !.
-simplify(E/F, X) :- simplify(E,A), simplify(F,B), X is A / B, !.
-*/
-
-
-
-
 
 
 %Aufgabe 3
