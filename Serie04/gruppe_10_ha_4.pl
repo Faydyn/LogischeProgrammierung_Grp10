@@ -39,6 +39,7 @@ Nun geht er wieder zu next(g1, s(C), s(s(C))). mit C = s(s(c)). Man sieht schnel
 
 %Aufgabe 2
 
+
 prove(true) :- !.
 prove(member(E, L)) :- !, member(E, L). % noetig, weil member built-in ist
 
@@ -50,7 +51,17 @@ prove(\+ Goal1) :- !, \+ prove(Goal1).%******
 prove((Goal1, Goal2)) :- !, prove(Goal1), prove(Goal2).
 prove(Goal) :- clause(Goal, Body), prove(Body).
 
+
 %2.b
+prove_b(Goal) :- prove_b_akk(Goal, 0).
+
+prove_b_akk(true, A) :- !.
+prove_b_akk(member(E, L),A) :- !, write(A), write(' NAF: '), writeln(member(E, L)),  member(E, L). % noetig, weil member built-in ist
+
+prove_b_akk(\+ Goal1, A) :- !, A1 is A, write(A), write(' try rule: '), writeln(\+ Goal1), \+ prove_b_akk(Goal1, A). 
+
+prove_b_akk((Goal1, Goal2), A) :- !, write(A), write(' goals: '), write(Goal1), write(','), writeln(Goal2), prove_b_akk(Goal1, A), prove_b_akk(Goal2, A).
+prove_b_akk(Goal, A) :- clause(Goal, Body), A1 is A+1, write(A), write(' try rule: '), write(Goal), write(' -> '), writeln(Body), prove_b_akk(Body, A1).
 
 
 %2.c
@@ -63,7 +74,21 @@ prove(Max, Tiefe, (Goal1, Goal2)) :- !, Tiefe1 is Tiefe + 1,  prove(Max, Tiefe1,
 prove(Max, Tiefe, Goal) :- clause(Goal, Body), prove(Max, Tiefe, Body).
 %Man findet nun 2 Lösungen. Es entsteht nun auch keine Endlosschleife mehr.
 
-
+/*
+prove(true) :- !,
+write('proven.'),
+nl.
+prove((A,B)) :- !,
+write('goal: '),
+write((A,B)),nl,
+prove(A),
+prove(B).
+prove(A) :-
+write('goal: '),
+write(A),nl,
+clause(A,B),
+prove(B).
+*/
 %Aufgabe 3
 
 %3.a
